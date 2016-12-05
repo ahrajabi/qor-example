@@ -5,6 +5,7 @@ import (
 	"path"
 	"time"
 
+	"github.com/qor/admin"
 	"github.com/qor/exchange"
 	"github.com/qor/exchange/backends/csv"
 	"github.com/qor/media_library"
@@ -38,6 +39,27 @@ func getWorker() *worker.Worker {
 			return nil
 		},
 		Resource: Admin.NewResource(&sendNewsletterArgument{}),
+	})
+
+	type testArgument struct {
+		Name      string
+		ProductID uint
+		Product   models.Product
+	}
+
+	debug := Admin.NewResource(&testArgument{})
+	debug.Meta(&admin.Meta{
+		Name: "Product",
+		Type: "select_one",
+	})
+
+	Worker.RegisterJob(&worker.Job{
+		Name: "Debug Worker",
+		Handler: func(arg interface{}, qorJob worker.QorJobInterface) error {
+			qorJob.AddLog("Exporting products...")
+			return nil
+		},
+		Resource: debug,
 	})
 
 	type importProductArgument struct {
