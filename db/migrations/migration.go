@@ -25,13 +25,13 @@ func init() {
 
 	AutoMigrate(&models.User{})
 
-	AutoMigrate(&models.SEOSetting{})
-
 	AutoMigrate(&transition.StateChangeLog{})
 
 	AutoMigrate(&activity.QorActivity{})
 
 	AutoMigrate(&admin.QorWidgetSetting{})
+
+	AutoMigrate(&admin.MySeoSetting{})
 
 	AutoMigrate(&models.MediaLibrary{})
 

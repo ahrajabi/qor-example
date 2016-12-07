@@ -13,6 +13,7 @@ import (
 	"github.com/qor/media_library"
 	"github.com/qor/publish2"
 	"github.com/qor/qor-example/db"
+	"github.com/qor/seo"
 	"github.com/qor/slug"
 	"github.com/qor/sorting"
 	"github.com/qor/validations"
@@ -41,6 +42,11 @@ type Product struct {
 	publish2.Version
 	publish2.Schedule
 	publish2.Visible
+	Seo seo.Setting `seo:"type:Product"`
+}
+
+func (product Product) GetSeoSetting() *seo.Setting {
+	return &product.Seo
 }
 
 func (product Product) DefaultPath() string {
