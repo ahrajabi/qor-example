@@ -73,9 +73,13 @@ func init() {
 	})
 
 	// Rules Definations
+	type Product struct {
+		Code string
+	}
 	amountGreaterThanArgument := Admin.NewResource(&struct {
-		Amount   int
-		Category string
+		Amount          int
+		Category        string
+		SpecialProducts []Product
 	}{})
 	amountGreaterThanArgument.Meta(&admin.Meta{Name: "Category", Type: "select_one", Collection: []string{"All Products", "Bags", "Summer Shirts", "Pants"}})
 	promotion.RegisterRuleHandler(promotion.RuleHandler{
