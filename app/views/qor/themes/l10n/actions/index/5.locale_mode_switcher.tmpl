@@ -1,0 +1,11 @@
+{{if (and (not (eq global_locale (current_locale .))) (eq (.Context.Request.URL.Query.Get "sorting") ""))}}
+<div class="qor-actions qor-actions__locale qor-bottomsheet__filter" data-toggle="qor.filter">
+  {{$locale_mode := .Context.Request.URL.Query.Get "locale_mode"}}
+  {{$current_locale := current_locale .}}
+  {{$localeDisplayName := (t $current_locale)}}
+  <select class="qor-action--select qor-locales" data-toggle="qor.selector" name="locale_mode">
+    <option value="locale" {{if (or (eq $locale_mode "locale") (not $locale_mode))}}selected{{end}}>{{t "qor_admin.actions.localized_for_locale" "Localized for {{$1}}" $localeDisplayName}}</option>
+    <option value="reverse" {{if (eq $locale_mode "reverse")}}selected{{end}}>{{t "qor_admin.actions.not_localized_for_locale" "Not localized for {{$1}}" $localeDisplayName}}</option>
+  </select>
+</div>
+{{end}}
